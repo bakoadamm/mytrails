@@ -8,6 +8,7 @@ body {
 
 * {
   outline: none !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 img {
@@ -204,7 +205,7 @@ a:hover, a:focus {
 }
 
 .pagination .page-item .page-link {
-  color: #a9d171;
+  color: #000;
 }
 
 .pagination .page-item.active .page-link {
@@ -1304,29 +1305,24 @@ body {
 
 h1, .h1 {
   font-size: 4.20873rem;
-  font-family: "Muli", sans-serif;
   line-height: 1;
 }
 
 h2, .h2 {
   font-size: 3.15733rem;
-  font-family: "Muli", sans-serif;
 }
 
 h3, .h3 {
   font-size: 2.36859rem;
-  font-family: "Muli", sans-serif;
 }
 
 h4, .h4 {
   font-size: 1.77689rem;
-  font-family: "Muli", sans-serif;
   margin-bottom: 1.333rem;
 }
 
 h5, .h5 {
   font-size: 1.333rem;
-  font-family: "Muli", sans-serif;
 }
 
 p, .p {
@@ -1339,7 +1335,6 @@ p.lead, .p.lead {
 
 h6, .h6 {
   font-size: 0.75019rem;
-  font-family: "Muli", sans-serif;
 }
 
 small, .small {
@@ -7193,4 +7188,102 @@ u {
 .edge .background-holder video {
   width: 100%;
   height: auto;
+}
+
+.gradient-text {
+    background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, transparent 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+/* Customize the label (the container) */
+.cb-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.cb-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.cb-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.cb-container input:checked ~ .checkmark {
+    background-color: #a7c77b;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.cb-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.cb-container .checkmark:after {
+    left: 10px;
+    top: 7px;
+    width: 5px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+/** paginate **/
+
+.page-item.active .page-link {
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+}
+
+.page-item .page-link,
+.page-item span {
+
+    color: black;
+    font-size: .875rem;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    margin: 0 3px;
+    padding: 0;
+    border-radius: 50% !important;
+    align-items: center;
+    justify-content: center;
 }

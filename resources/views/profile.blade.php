@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container mt-4 header remodal-bg">
+    <div class="container mt-4 header">
         <div class="row">
             <div class="col-6 text-left mb-4">
                 <a class="btn btn-outline-dark btn-social radius-round active routes-tab" href="#">
@@ -22,41 +22,109 @@
             </div>
         </div>
         <div class="row trails">
-            <h4 class="mb-1 fs-1">Feltöltött útvonalaim</h4>
-            <table class="table table-bordered table-primary table-responsive">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Kép</th>
-                    <th scope="col">Név</th>
-                    <th scope="col">Rövid leírás</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($tracks as $track)
-                <tr>
-                    <td scope="row">{{ $track->getId() }}</td>
-                    <td>
-                        <img src="{{ '/storage/covers/' . $track->getCover() }}" class="img-fluid rounded" style="width:200px;" alt="...">
-                    </td>
-                    <td>{{ $track->getTitle() }}</td>
-                    <td>{{ $track->getShortDescription() }}</td>
-                    <td style="width: 250px;">
-                        <a class="btn btn-outline-dark btn-social radius-round mr-1 delete" href="#" data-id="{{ $track->getId() }}">
-                            <i class="fs-0 fa fa-trash fa-2x"></i>
-                        </a>
-                        <a class="btn btn-outline-dark btn-social radius-round mr-1" href="/utvonal/szerkesztes/{{ $track->getId() }}">
-                            <i class="fs-0 fa fa-edit fa-2x"></i>
-                        </a>
-                        <a class="btn btn-outline-dark btn-social radius-round mr-1" target="_blank" href="/utvonal/{{ $track->getId() }}">
-                            <i class="fs-0 fa fa-eye fa-2x"></i>
-                        </a>
-                    </td>
-                </tr>
-                @endforeach
-                </tbody>
-            </table>
+
+
+
+
+
+
+
+            <div class="container mt-1">
+                <!-- Table -->
+                <div class="row">
+
+                    <div class="col">
+                        <div class="card shadow">
+                            <div class="card-header border-0">
+                                <h4 class="mb-0 fs-1">Feltöltött útvonalaim</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Kép</th>
+                                        <th scope="col">Útvonal neve</th>
+                                        <th scope="col">Státusz</th>
+                                        <th scope="col">Látható</th>
+                                        <th scope="col">Műveletek</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($tracks as $track)
+                                    <tr>
+                                        <th scope="row" class="w-25">
+                                            <div class="media align-items-center">
+                                                <a href="#" class=" mr-3">
+                                                    <img alt="track image" src="{{ '/storage/covers/' . $track->getCover() }}">
+                                                </a>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <span class="fs-0">{{ $track->getTitle() }}</span>
+                                        </td>
+                                        <td>
+                                            @if($track->getStatus() == 1)
+                                            <span class="badge badge-success">Aktív</span>
+                                            @else
+                                                <span class="badge badge-danger">Inaktív</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($track->getPrivate() == 1)
+                                                <span class="badge badge-secondary">Private</span>
+                                            @else
+                                                <span class="badge badge-success">Publikus</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="btn btn-outline-dark btn-social radius-round mr-1 delete" href="#" data-id="{{ $track->getId() }}">
+                                                <i class="fs-0 fa fa-trash fa-2x"></i>
+                                            </a>
+                                            <a class="btn btn-outline-dark btn-social radius-round mr-1" href="/utvonal/szerkesztes/{{ $track->getId() }}">
+                                                <i class="fs-0 fa fa-edit fa-2x"></i>
+                                            </a>
+                                            <a class="btn btn-outline-dark btn-social radius-round mr-1" target="_blank" href="/utvonal/{{ $track->getId() }}">
+                                                <i class="fs-0 fa fa-eye fa-2x"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{--}}
+                            <div class="card-footer py-4">
+                                <nav aria-label="...">
+                                    <ul class="pagination justify-content-end mb-0">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1">
+                                                <i class="fa fa-angle-left"></i>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">
+                                                <i class="fa fa-angle-right"></i>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="row settings">
             <h4 class="mb-1 fs-1">Profil beállítások</h4>
@@ -114,13 +182,6 @@
         table th {
             background: white !important;
         }
-        table tr {
-            transition: all .3s
-        }
-        table tr:hover {
-            background: #a9d171;
-            transition: all .3s
-        }
 
         .lib-panel {
             margin-bottom: 20px;
@@ -135,7 +196,6 @@
             padding: 0;
             background-color: #FFFFFF;
         }
-
 
         .lib-panel .lib-row {
             padding: 0 20px 0 20px;
@@ -179,6 +239,73 @@
         .no-padding {
             padding: 0;
         }
+    </style>
+
+
+    <style>
+
+
+        .table thead th {
+            font-size: .65rem;
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table th {
+            font-weight: 600;
+        }
+
+        .table td,
+        .table th {
+            font-size: .8125rem;
+            white-space: nowrap;
+        }
+
+        .table.align-items-center td,
+        .table.align-items-center th {
+            vertical-align: middle;
+        }
+
+        .table .thead-dark th {
+            color: #4d7bca;
+            background-color: #1c345d;
+        }
+
+        .table .thead-light th {
+            color: #8898aa;
+            background-color: #f6f9fc;
+        }
+
+        .table-flush td,
+        .table-flush th {
+            border-right: 0;
+            border-left: 0;
+        }
+
+        .table-flush tbody tr:first-child td,
+        .table-flush tbody tr:first-child th {
+            border-top: 0;
+        }
+
+        .table-flush tbody tr:last-child td,
+        .table-flush tbody tr:last-child th {
+            border-bottom: 0;
+        }
+
+        .card .table {
+            margin-bottom: 0;
+        }
+
+        .card .table td,
+        .card .table th {
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+
     </style>
 @stop
 

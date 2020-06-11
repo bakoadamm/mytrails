@@ -110,7 +110,18 @@
                 url     : '/like/' + id,
                 type    : 'post',
                 dataType: 'json',
+                error: function (xhr, ajaxOptions, thrownError) {
+                    switch(xhr.status) {
+                        case 401:
+                            Notiflix.Notify.Warning('Be kell jelentkezned ehhez a funkcióhoz!');
+                            break;
+                        default:
+                            Notiflix.Notify.Failure('Ismeretlen hiba!');
+                            break;
+                    }
+                }
             }).done(function(re) {
+                console.log(re)
                 if(re.message === 'dislike') {
                     $('.heart').removeClass('red-heart');
                     Notiflix.Notify.Info('Az útvonalat eltávolítottad a kedvencek közül!');

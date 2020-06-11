@@ -14,15 +14,33 @@ class TrackController extends Controller  {
     }
 
     public function render($id) {
+        $track = $this->repository->get($id);
+        if($track == null) {
+            abort(404);
+        }
         $data = [
-            'track' => $this->repository->get($id)
+            'track' => $track
         ];
         return view('track_single', $data);
     }
 
-    public function all() {
+    public function all(Request $request) {
+
+        $params['region'] = [];
+        if(isset($_GET['tajegyseg'])) { $params['region'] = explode(',', $_GET['tajegyseg']); }
+
+        $tracks = $this->repository->all($request,5);
+
+        $regions = $this->repository->getAllRegion();
+
+        if( ! isset($tracks['collection'])) {
+            $tracks['collection'] = [];
+        }
         $data = [
-            'tracks' => $this->repository->all()
+            'regions' => $regions,
+            'tracks' => $tracks['collection'],
+            'links'  => $tracks['links'],
+            'params' => $params
         ];
         return view('tracks', $data);
     }

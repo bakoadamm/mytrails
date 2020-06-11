@@ -19,7 +19,7 @@ interface TrackRepositoryInterface {
      *
      * @return mixed
      */
-    public function all();
+    public function all(Request $request, $pageSize);
 
     /**
      * Deletes a track.

@@ -9,9 +9,8 @@
             <div class="col">
                 <div class="gsap has-parallax py-8">
                     <p class="gsap-slide-up lead font-italic color-11 parallax" data-rellax-speed="8">MyTrails</p>
-                    <h1 class="gsap-unite fs-2 fs-lg-4 text-uppercase color-white fw-800 mb-6 parallax" data-rellax-speed="5">Töltsd fel
-                        <br class="d-md-none" />
-                        <span class="d-none d-md-inline-block"></span>Kedvenc útvonalaidat</h1>
+                    <h3 class="gsap-unite fs-1 fs-lg-3 color-white fw-800 mb-6 parallax" data-rellax-speed="5">Töltsd fel
+                        <span class="d-none d-md-inline-block"></span>Kedvenc útvonalaidat</h3>
                     <div class="gsap-slide-down parallax" data-rellax-speed="3">
                         <a class="btn btn-white btn-capsule text-uppercase ls" href="#about">Tovább</a>
                     </div>
@@ -27,7 +26,7 @@
         <div class="row justify-content-center text-center">
             <div class="col-md-11 col-lg-9">
                 <div class="has-parallax">
-                    <h4 class="font-2 mb-4 fw-400">Töltsd fel és oszd meg másokkal kedvenc útvonalaidat.</h4>
+                    <h3 class="mb-4 fw-400 font-2">Töltsd fel és oszd meg másokkal kedvenc útvonalaidat.</h3>
                 </div>
             </div>
         </div>
@@ -49,7 +48,7 @@
 <section class="pt-0">
     <div class="container">
         <div class="row justify-content-center text-center">
-            <h4 class="fw-800 ls color-primary mt-4 mb-5">Leutóbb feltöltött útvonalak</h4>
+            <h4 class="fw-800 ls color-primary mt-4 mb-5">Legutóbb feltöltött útvonalak</h4>
         </div>
         <div class="row justify-content-center text-center">
             @foreach($tracks as $track)
@@ -68,4 +67,13 @@
     <!--/.container-->
 </section>
 @include('fragments.footer')
+@stop
+
+@section('css')
+    <style>
+        body {
+            background-image: url('/assets/images/topo-25.png');
+            background-size: cover;
+        }
+    </style>
 @stop

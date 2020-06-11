@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 use App\DataObject\TrackDto;
+use App\Model\Region;
 use App\Model\Track;
 use App\Model\UserLike;
 use Illuminate\Http\Request;
@@ -17,9 +18,21 @@ class TrackRepository implements TrackRepositoryInterface {
      * Get's a track by it's ID
      *
      * @param int
+     *
+     * @return TrackDto|null
      */
     public function get($trackId) {
-        return new TrackDto(Track::find($trackId));
+        $track = Track::where([
+            ['id', '=', $trackId],
+            ['private', '=', 0],
+            ['status', '=', 1]
+        ])->first();
+        if($track instanceof Track) {
+            return new TrackDto($track);
+        } else {
+            return null;
+        }
+
     }
 
     /**
@@ -45,16 +58,17 @@ class TrackRepository implements TrackRepositoryInterface {
      *
      * @return Collection
      */
-    public function all() {
-        $tracks = Track::where([
+    public function all(Request $request, $pageSize) {
+        $tracks = Track::filter($request)->where([
             ['status', '=', 1],
             ['private', '=', 0]
-        ])->orderBy('created_at', 'desc')->get();
+        ])->orderBy('created_at', 'desc')->paginate($pageSize);
 
         $result = [];
         foreach($tracks as $track) {
-            $result[] = new TrackDto($track);
+            $result['collection'][] = new TrackDto($track);
         }
+        $result['links'] = $tracks->links('vendor.pagination.paginate');
         return collect($result);
     }
 
@@ -69,6 +83,10 @@ class TrackRepository implements TrackRepositoryInterface {
             $result[] = new TrackDto($track);
         }
         return collect($result);
+    }
+
+    public function getAllRegion() {
+        Return Region::orderBy('name', 'asc')->get();
     }
 
     /**

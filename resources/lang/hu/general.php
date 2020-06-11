@@ -24,7 +24,6 @@ return [
     'Name'  => 'Név',
     'Confirm Password' => 'Jelszó újra',
     'title' => 'Cím',
-
-
+    'Forgot Your Password?' => 'Elfelejtetted a jelszavad?',
 
 ];

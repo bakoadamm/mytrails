@@ -56,6 +56,8 @@ class TrackDto {
 
     private $userLiked;
 
+    private $regions = [];
+
     /**
      * TrackDto constructor.
      * @param Track $track
@@ -73,6 +75,7 @@ class TrackDto {
         $this->updated_at = $track->updated_at;
         $this->created_at = $track->created_at;
         $this->userLiked = $this->getLiked();
+        $this->regions = $track->region()->get();
     }
 
     /**
@@ -157,6 +160,13 @@ class TrackDto {
      */
     public function getUserLiked() {
         return $this->userLiked;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getRegions(): \Illuminate\Database\Eloquent\Collection {
+        return $this->regions;
     }
 
     public function getLiked() {
