@@ -8,7 +8,7 @@
         @if($edit)
             <h4 class="mb-1 fs-1">Útvonal szerkesztése</h4>
         @else
-        <h4 class="mb-1 fs-1">Új útvonal hozzáadása</h4>
+            <h4 class="mb-1 fs-1">Új útvonal hozzáadása</h4>
         @endif
 
         <div class="card bg-light">
@@ -21,6 +21,15 @@
                     <label class="fs-0 form-control-label" for="input1">Az útvonal neve</label>
                     <input type="text" class="form-control" name="title" id="title" @if($edit)value="{{ $track->getTitle() }}"@endif required>
 
+                </div>
+                <div class="form-group">
+                    <label class="fs-0 form-control-label d-block" for="input1">Tájegységek amiken az útvonal halad</label>
+                    <select class="region-select-2 d-block" name="regions[]" multiple="multiple" style="width: 100%">
+
+                        @foreach($regions as $region)
+                            <option value="{{ $region->id }}" @if(isset($track) && in_array($region->id, $track->getRegionIdArray())){{'selected'}}@endif>{{ $region->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -50,7 +59,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="btn btn-outline-dark btn-capsule" style="border-width: 2px;">@if($edit){{'Szerkesztés'}}@else{{'Hozzáadás'}}@endif</button>
+                    <button type="submit" class="btn btn-outline-dark btn-capsule" style="border-width: 2px;">@if($edit){{'Mentés'}}@else{{'Hozzáadás'}}@endif</button>
                 </div>
 
             </form>
@@ -65,6 +74,7 @@
 
 
 @section('css')
+    <link rel="stylesheet" href="/assets/lib/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="/assets/css/notiflix-1.3.0.min.css">
     <link rel="stylesheet" href="/assets/lib/summernote/summernote-bs4.css">
     <style>
@@ -75,6 +85,7 @@
 @stop
 
 @section('js')
+    <script src="/assets/lib/select2/dist/js/select2.min.js"></script>
     <script src="/assets/js/notiflix-1.3.0.min.js"></script>
     <script src="/assets/lib/summernote/summernote-bs4.js"></script>
     <script>
@@ -83,7 +94,8 @@
                 placeholder: 'Leírás',
                 tabsize: 2,
                 height: 300
-            })
+            });
+            $('.region-select-2').select2();
         })
     </script>
     @if (\Session::has('success'))

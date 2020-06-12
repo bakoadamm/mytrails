@@ -169,6 +169,14 @@ class TrackDto {
         return $this->regions;
     }
 
+    public function getRegionIdArray() {
+        $result = [];
+        foreach($this->regions as $region) {
+            $result[] = $region->id;
+        }
+        return $result;
+    }
+
     public function getLiked() {
         if(Auth::user()) {
             $liked = Auth::user()->likedTrack()->where([

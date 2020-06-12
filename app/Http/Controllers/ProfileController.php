@@ -42,14 +42,21 @@ class ProfileController extends Controller
     }
 
     public function add() {
-        return view('track_add');
+        $regions = $this->repository->getAllRegion();
+        $result = [
+            'regions' => $regions
+        ];
+        return view('track_add', $result);
     }
 
     public function edit(Request $request) {
+        $regions = $this->repository->getAllRegion();
+
         $data = $this->repository->getOwnTrackById($request->id, Auth::user()->id);
 
         $result = [
-            'track' => $data
+            'track' => $data,
+            'regions' => $regions
         ];
         if($data instanceof TrackDto) {
             return view('track_add', $result);

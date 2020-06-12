@@ -6,6 +6,7 @@ namespace App\Repository;
 use App\DataObject\TrackDto;
 use App\Model\Region;
 use App\Model\Track;
+use App\Model\TrackRegion;
 use App\Model\UserLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -116,13 +117,27 @@ class TrackRepository implements TrackRepositoryInterface {
      *
      */
     public function update(Request $request) {
-        //$track = $this->getOwnTrackById($request->track_id, Auth::user()->id);
+
         $track = Track::where([
             ['id', '=', $request->track_id],
             ['user_id', '=', Auth::user()->id]
         ])->first();
 
         if($track instanceof Track) {
+
+            $existRegions = TrackRegion::where('track_id', '=', $request->track_id)->get();
+            if(isset($request->regions)) {
+                foreach($existRegions as $er) {
+                    $er->delete();
+                }
+                foreach($request->regions as $regionId) {
+                    $model = new TrackRegion();
+                    $model->track_id = $request->track_id;
+                    $model->region_id = $regionId;
+                    $model->save();
+                }
+            }
+
             $track->title = $request->title;
             $track->short_description = $request->short_description;
             $track->description = $request->description;
@@ -173,6 +188,16 @@ class TrackRepository implements TrackRepositoryInterface {
             $track->cover = $cover;
         }
         $track->save();
+
+        if(isset($request->regions)) {
+            foreach($request->regions as $regionId) {
+                $model = new TrackRegion();
+                $model->track_id = $track->id;
+                $model->region_id = $regionId;
+                $model->save();
+            }
+        }
+
         return true;
 
     }
