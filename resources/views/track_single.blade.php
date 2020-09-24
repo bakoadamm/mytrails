@@ -3,7 +3,7 @@
 @section('content')
     <section class="header text-center color-white overflow-hidden p-0">
         <div class="background-holder overlay gsap-fade-in"
-             style="background-image:url('assets/images/topo-layer.png'), url('{{ '/storage/covers/' . $track->getCover() }}'); transform: matrix(1, 0, 0, 1, 0, 0); filter: blur(0px); opacity: 1;">
+             style="background-image: {{--url('/assets/images/topo-layer.png'),--}} url('{{ '/storage/covers/' . $track->getCover() }}'); transform: matrix(1, 0, 0, 1, 0, 0); filter: blur(0px); opacity: 1;">
             <div class="layer"></div>
         </div>
         <!--/.background-holder-->
@@ -41,9 +41,11 @@
                         <h4 class="mt-3 mb-3 fw-700 color-2">{{ $track->getTitle() }}</h4>
                         <p class="font-italic fw-400 color-4">
                             Feltöltötte: <a href="#">{{ $track->getUser()->name }}</a><br>
-                            <time class="timeago mr-1" datetime="{{ $track->getCreatedAt() }}">{{ $track->getCreatedAt() }}</time><br>
-                            <span class="distance">Táv: <span></span> km</span><br>
-                            <span class="alt">Szintemelkedés: <span></span> m</span>
+                            <img src="/assets/images/time-outline.svg" style="width:20px"> <time class="timeago mr-1" datetime="{{ $track->getCreatedAt() }}">{{ $track->getCreatedAt() }}</time><br>
+                            <span class="distance"><img src="/assets/images/trail-sign-outline.svg" style="width:20px"> Táv: <span></span> km</span><br>
+                            <span class="alt"><img src="/assets/images/triangle-outline.svg" style="width:20px"> Szintemelkedés: <span></span> m</span><br>
+                            <span class="regions"><img src="/assets/images/map-outline.svg" style="width:20px"> Tájegységek: @foreach($track->getRegions() as $region){{ $region->name }}@if(!$loop->last){{', '}}@endif @endforeach</span>
+
                         </p>
                         <hr class="color-9">
                         <p class="fs-1 lh-2 color-3">{{ $track->getShortDescription() }}</p>
@@ -212,7 +214,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.min.js"></script>
     <script src="/assets/leaflet/context.js"></script>
     <script src="/assets/leaflet/Locate.js" charset="utf-8"></script>
-    <script src="https://rawgithub.com/mpetazzoni/leaflet-gpx/master/gpx.js"></script>
+    <script src="{{ asset('assets/js/leaflet-gpx.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet-geometryutil@0.9.3/src/leaflet.geometryutil.min.js"></script>
     <script src="/assets/leaflet/distance-marker.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
@@ -291,7 +293,7 @@
                 marker_options: {
                     startIconUrl: 'http://mrmufflon.github.io/Leaflet.Elevation/example/lib/leaflet-gpx/pin-icon-start.png',
                     endIconUrl:   'http://mrmufflon.github.io/Leaflet.Elevation/example/lib/leaflet-gpx/pin-icon-end.png',
-                    shadowUrl:    'http://github.com/mpetazzoni/leaflet-gpx/raw/master/pin-shadow.png',
+                    shadowUrl:    '/assets/images/pin-shadow.png',
                     wptIconUrls: {
                         '': '/assets/images/map-marker-2.png',
                         'Geocache Found': 'img/gpx/geocache.png',
@@ -311,6 +313,8 @@
                 map.fitBounds(gpx.getBounds());
                 control.addOverlay(gpx, gpx.get_name());
 
+                console.table(gpx)
+                console.log(gpx)
                 console.log('hr:' + gpx.get_average_hr())
 
                 let distance = gpx.get_distance()/1000;
@@ -360,6 +364,8 @@
             map.on('eledata_loaded', function(e) {
                 let q = document.querySelector.bind(document);
                 let track = e.track_info;
+
+                console.log(track);
 
                 q('.totlen .summaryvalue').innerHTML = track.distance.toFixed(1) + " km";
                 q('.maxele .summaryvalue').innerHTML = track.elevation_max.toFixed(1) + " m";

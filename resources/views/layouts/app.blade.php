@@ -31,8 +31,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/notiflix-1.3.0.min.css">
     <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/assets/lib/remodal/dist/remodal.css" rel="stylesheet">
-    <link href="/assets/lib/remodal/dist/remodal-default-theme.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link href="/assets/lib/css-hamburgers/dist/hamburgers.css" rel="stylesheet">
     <!-- Main stylesheet and color file-->
     <link href="/assets/css/style.css" rel="stylesheet">
@@ -61,7 +60,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
 <script src="/assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
 <script src="/assets/lib/rellax/rellax.js"></script>
-<script src="/assets/lib/remodal/dist/remodal.js"></script>
 <script src="/assets/js/core.js"></script>
 <script src="/assets/js/main.js"></script>
 

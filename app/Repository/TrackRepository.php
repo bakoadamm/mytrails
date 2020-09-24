@@ -87,7 +87,7 @@ class TrackRepository implements TrackRepositoryInterface {
     }
 
     public function getAllRegion() {
-        Return Region::orderBy('name', 'asc')->get();
+        return Region::orderBy('name', 'asc')->get();
     }
 
     /**

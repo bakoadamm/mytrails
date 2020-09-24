@@ -59,16 +59,16 @@
                                         </td>
                                         <td>
                                             @if($track->getStatus() == 1)
-                                            <span class="badge badge-success">Aktív</span>
+                                            <span class="badge badge-success"><img src="/assets/images/cloud-done-outline.svg" style="width:20px"> Aktív</span>
                                             @else
-                                                <span class="badge badge-danger">Inaktív</span>
+                                                <span class="badge badge-danger"><img src="/assets/images/cloud-offline-outline.svg" style="width:20px"> Inaktív</span>
                                             @endif
                                         </td>
                                         <td>
                                             @if($track->getPrivate() == 1)
-                                                <span class="badge badge-secondary">Private</span>
+                                                <span class="badge badge-secondary"><img src="/assets/images/lock-closed-outline.svg" style="width:20px"> Private</span>
                                             @else
-                                                <span class="badge badge-success">Publikus</span>
+                                                <span class="badge badge-success"><img src="/assets/images/earth-outline.svg" style="fill: #fff; width:20px"> Publikus</span>
                                             @endif
                                         </td>
                                         <td class="text-right">

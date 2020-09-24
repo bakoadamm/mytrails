@@ -40,7 +40,8 @@ class TrackController extends Controller  {
             'regions' => $regions,
             'tracks' => $tracks['collection'],
             'links'  => $tracks['links'],
-            'params' => $params
+            'params' => $params,
+            'queryString' => http_build_query($_GET)
         ];
         return view('tracks', $data);
     }
